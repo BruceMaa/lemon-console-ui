@@ -1,0 +1,16 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "vite.config.ts", "eslint.config.ts"], // 指定被编译文件所在的目录
+  "exclude": ["src/**/__tests__/*", "node_modules", "dist", "**/*.js"], // 指定不需要被编译的目录
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "baseUrl": ".", // 用于解析非相对模块名称的基目录
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowJs": true, // 允许编译javascript文件
+    "checkJs": true, // 启用对js文件类型检查
+    "noImplicitAny": false, // 不允许隐式的any类型
+    "sourceMap": true // 是否生成响应的Map映射文件，默认为false
+  }
+}
