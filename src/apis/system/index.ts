@@ -1,6 +1,7 @@
 export * from './common'
 export * from './dept'
 export * from './menu'
+export * from './option'
 export * from './role'
 export * from './user'
 export * from './user-message'

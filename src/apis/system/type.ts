@@ -100,15 +100,6 @@ export interface RoleUserQuery {
 }
 export interface RoleUserPageQuery extends RoleUserQuery, PageQuery {}
 
-/** 基础配置类型 */
-export interface BasicConfig {
-  SITE_FAVICON: string
-  SITE_LOGO: string
-  SITE_TITLE: string
-  SITE_COPYRIGHT: string
-  SITE_BEIAN: string
-}
-
 /** 菜单类型 */
 export interface MenuResp {
   id: string
@@ -263,4 +254,37 @@ export interface CompleteMultipartUploadReq {
 /** 分片上传 - 取消上传参数 */
 export interface CancelUploadParams {
   uploadId: string
+}
+
+/** 系统参数类型 */
+export interface OptionResp {
+  id: string
+  name: string
+  code: string
+  value: string
+  description: string
+}
+
+export interface OptionQuery {
+  code?: Array<string>
+  category?: string
+}
+
+/** 基础配置类型 */
+export interface BasicConfig {
+  SITE_FAVICON: string
+  SITE_LOGO: string
+  SITE_TITLE: string
+  SITE_COPYRIGHT: string
+  SITE_BEIAN: string
+}
+
+/** 基础配置类型 */
+export interface SiteConfig {
+  SITE_FAVICON: OptionResp
+  SITE_LOGO: OptionResp
+  SITE_TITLE: OptionResp
+  SITE_DESCRIPTION: OptionResp
+  SITE_COPYRIGHT: OptionResp
+  SITE_BEIAN: OptionResp
 }
