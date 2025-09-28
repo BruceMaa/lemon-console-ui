@@ -7,7 +7,7 @@ const BASE_URL = '/system/common'
  * @desc 查询字典列表
  */
 export const listCommonDict = (code: string) => {
-  return http.get<LabelValueState[]>(`${BASE_URL}/dict/${code}`)
+  return http.get<LabelValueState[]>(`${BASE_URL}/dicts/${code}`)
 }
 
 /**
