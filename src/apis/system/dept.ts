@@ -8,7 +8,7 @@ const BASE_URL = '/system/depts'
 
 /** @desc 查询部门列表 */
 export function listDept(query: T.DeptQuery) {
-  return http.get<T.DeptResp[]>(`${BASE_URL}/tree`, query)
+  return http.get<T.DeptTreeResp[]>(`${BASE_URL}/tree`, query)
 }
 
 /** @desc 查询部门详情 */
@@ -17,12 +17,12 @@ export function getDept(id: string) {
 }
 
 /** @desc 新增部门 */
-export function addDept(data: any) {
-  return http.post<boolean>(`${BASE_URL}`, data)
+export function addDept(data: T.DeptReq) {
+  return http.post(`${BASE_URL}`, data)
 }
 
 /** @desc 修改部门 */
-export function updateDept(data: any, id: string) {
+export function updateDept(data: T.DeptReq, id: string) {
   return http.put(`${BASE_URL}/${id}`, data)
 }
 

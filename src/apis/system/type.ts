@@ -274,19 +274,56 @@ export interface MenuQuery {
 }
 
 /** 部门类型 */
-export interface DeptResp {
-  id: string
+export interface DeptReq {
+  /**
+   * 描述
+   */
+  description?: string
+  /**
+   * 名称
+   */
   name: string
-  sort: number
-  status: Status
-  isSystem: boolean
-  description: string
-  createdUsername: string
-  createdAt: string
-  modifiedUsername: string
-  modifiedAt: string
-  parentId: string
-  children: DeptResp[]
+  /**
+   * 上级部门 ID
+   */
+  parentId: number
+  /**
+   * 排序
+   */
+  sort?: number
+  /**
+   * 状态<span style='color:red'>{1=启用, 0=禁用}</span>
+   */
+  status?: Status
+}
+export interface DeptResp extends BaseDetailResp {
+  /**
+   * 描述，描述
+   */
+  description?: string
+  /**
+   * 是否为系统内置数据，是否为系统内置数据
+   */
+  isSystem?: boolean
+  /**
+   * 名称，名称
+   */
+  name?: string
+  /**
+   * 上级部门ID，上级部门ID
+   */
+  parentId?: number
+  /**
+   * 排序，排序
+   */
+  sort?: number
+  /**
+   * 状态，状态：1=启用，0=禁用
+   */
+  status?: Status
+}
+export interface DeptTreeResp extends DeptResp {
+  children: DeptTreeResp[]
 }
 export interface DeptQuery {
   description?: string
