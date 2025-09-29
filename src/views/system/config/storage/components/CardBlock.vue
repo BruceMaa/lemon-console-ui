@@ -20,25 +20,25 @@
             <span>默认存储</span>
           </a-tag>
         </div>
-        <div v-if="has.hasPermOr(['system:storage:setDefault', 'system:storage:update', 'system:storage:delete'])" class="more">
+        <div v-if="has.hasPermOr(['system:storages:setDefault', 'system:storages:update', 'system:storages:delete'])" class="more">
           <a-dropdown>
             <icon-more />
             <template #content>
               <a-doption
-                v-permission="['system:storage:setDefault']"
-                :disabled="data.isDefault || data.status === 2"
-                :title="data.isDefault ? '该存储已设为默认存储' : data.status === 2 ? '请先启用存储' : ''"
+                v-permission="['system:storages:setDefault']"
+                :disabled="data.isDefault || data.status === 0"
+                :title="data.isDefault ? '该存储已设为默认存储' : data.status === 0 ? '请先启用存储' : ''"
                 @click="onSetDefault(data)"
               >
                 <icon-check-circle />
                 设为默认
               </a-doption>
-              <a-doption v-permission="['system:storage:update']" @click="onUpdate(data)">
+              <a-doption v-permission="['system:storages:update']" @click="onUpdate(data)">
                 <icon-edit />
                 修改
               </a-doption>
               <a-doption
-                v-permission="['system:storage:delete']"
+                v-permission="['system:storages:delete']"
                 :disabled="data.isDefault"
                 :title="data.isDefault ? '不允许删除默认存储' : ''"
                 @click="onDelete(data)"
@@ -50,7 +50,7 @@
           </a-dropdown>
         </div>
       </div>
-      <div class="time">{{ data.createTime }}</div>
+      <div class="time">{{ data.createdAt }}</div>
     </template>
     <div :class="data.type === 1 ? 'content' : 'content-large'">
       <slot name="content"></slot>
@@ -62,11 +62,11 @@
       <a-switch
         v-else
         v-model="status"
-        :disabled="!has.hasPermOr(['system:storage:updateStatus']) || data.isDefault"
+        :disabled="!has.hasPermOr(['system:storages:updateStatus']) || data.isDefault"
         :title="data.isDefault ? '不允许禁用默认存储' : ''"
         :loading="switchLoading"
         :checked-value="1"
-        :unchecked-value="2"
+        :unchecked-value="0"
         :before-change="onUpdateStatus"
       />
     </div>
@@ -100,14 +100,15 @@ const search = () => {
 
 const { storage_type_enum } = useDict('storage_type_enum')
 const storageType = computed(() => {
-  return storage_type_enum.value.find((item) => item.value === props.data.type)?.label || '本地存储'
+  return storage_type_enum.value.find((item) => item.value === String(props.data.type))?.label || '本地存储'
 })
 
 const status = ref(props.data.status)
 const switchLoading = ref(false)
 // 更新状态
-const onUpdateStatus = async (newValue: number) => {
-  const tip = newValue === 1 ? '启用' : '禁用'
+const onUpdateStatus = async (newValue: string | number | boolean) => {
+  const numValue = typeof newValue === 'number' ? newValue : Number(newValue)
+  const tip = numValue === 1 ? '启用' : '禁用'
   switchLoading.value = true
   Modal.warning({
     title: '提示',
@@ -116,12 +117,12 @@ const onUpdateStatus = async (newValue: number) => {
     maskClosable: false,
     onCancel: async () => {
       switchLoading.value = false
-      status.value = newValue === 1 ? 2 : 1
+      status.value = numValue === 1 ? 0 : 1
     },
     onBeforeOk: async () => {
       try {
         const res = await updateStorageStatus({
-          status: newValue,
+          status: numValue === 1 ? 1 : 0,
         }, props.data.id)
         if (res.success) {
           Message.success(`${tip}成功`)
@@ -129,7 +130,7 @@ const onUpdateStatus = async (newValue: number) => {
         }
         return res.success
       } catch {
-        status.value = newValue === 1 ? 2 : 1
+        status.value = numValue === 1 ? 0 : 1
         return false
       } finally {
         switchLoading.value = false

@@ -1,4 +1,5 @@
-import type { AuthType, BaseDetailResp, Gender, MenuType, Status } from '@/types/global'
+import type { AuthType, Gender, MenuType, Status, StorageType } from '@/enums'
+import type { BaseDetailResp } from '@/types/global'
 
 /** 字典类型 */
 export interface DictReq {
@@ -300,11 +301,56 @@ export interface CancelUploadParams {
 }
 
 /** 存储类型 */
-export interface StorageResp {
-  id: string
+export interface StorageReq {
+  /**
+   * Access Key
+   */
+  accessKey?: string
+  /**
+   * Bucket/存储路径
+   */
+  bucketName?: string
+  /**
+   * 编码
+   */
+  code: string
+  /**
+   * 描述
+   */
+  description?: string
+  /**
+   * 域名/访问路径
+   */
+  domain: string
+  /**
+   * Endpoint
+   */
+  endpoint?: string
+  /**
+   * 名称
+   */
+  name: string
+  /**
+   * Secret Key
+   */
+  secretKey?: string
+  /**
+   * 排序
+   */
+  sort?: number
+  /**
+   * 状态<span style='color:red'>{1=启用, 0=禁用}</span>
+   */
+  status?: Status
+  /**
+   * 类型<span style='color:red'>{1=本地存储, 2=对象存储}</span>
+   */
+  type: number
+}
+export interface StorageResp extends BaseDetailResp {
   name: string
   code: string
-  type: number
+  type: StorageType
   accessKey: string
   secretKey: string
   endpoint: string
@@ -313,15 +359,12 @@ export interface StorageResp {
   description: string
   isDefault: boolean
   sort: number
-  status: number
-  createUserString: string
-  createTime: string
-  updateUserString: string
-  updateTime: string
+  status: Status
 }
+
 export interface StorageQuery {
   description?: string
-  type?: number
+  type?: number | string
   sort: Array<string>
 }
 

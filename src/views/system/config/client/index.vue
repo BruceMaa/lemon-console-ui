@@ -31,17 +31,17 @@
         </a-button>
       </template>
       <template #toolbar-right>
-        <a-button v-permission="['system:client:create']" type="primary" @click="onAdd">
+        <a-button v-permission="['system:clients:create']" type="primary" @click="onAdd">
           <template #icon><icon-plus /></template>
           <template #default>新增</template>
         </a-button>
       </template>
       <template #action="{ record }">
         <a-space>
-          <a-link v-permission="['system:client:get']" title="详情" @click="onDetail(record)">详情</a-link>
-          <a-link v-permission="['system:client:update']" title="修改" @click="onUpdate(record)">修改</a-link>
+          <a-link v-permission="['system:clients:get']" title="详情" @click="onDetail(record)">详情</a-link>
+          <a-link v-permission="['system:clients:update']" title="修改" @click="onUpdate(record)">修改</a-link>
           <a-link
-            v-permission="['system:client:delete']"
+            v-permission="['system:clients:delete']"
             status="danger"
             :disabled="record.disabled"
             :title="record.disabled ? '不可删除' : '删除'"
@@ -167,7 +167,7 @@ const columns: TableInstance['columns'] = [
     width: 160,
     align: 'center',
     fixed: !isMobile() ? 'right' : undefined,
-    show: has.hasPermOr(['system:client:get', 'system:client:update', 'system:client:delete']),
+    show: has.hasPermOr(['system:clients:get', 'system:clients:update', 'system:clients:delete']),
   },
 ]
 

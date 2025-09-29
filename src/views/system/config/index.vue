@@ -54,8 +54,8 @@ const data = [
   { name: '安全配置', key: 'security', icon: 'safe', permissions: ['system:securityConfig:get'], value: SecurityConfig },
   { name: '登录配置', key: 'login', icon: 'lock', permissions: ['system:loginConfig:get'], value: LoginConfig },
   { name: '邮件配置', key: 'mail', icon: 'email', permissions: ['system:mailConfig:get'], value: MailConfig },
-  { name: '存储配置', key: 'storage', icon: 'storage', permissions: ['system:storage:list'], value: StorageConfig },
-  { name: '客户端配置', key: 'client', icon: 'mobile', permissions: ['system:client:list'], value: ClientConfig },
+  { name: '存储配置', key: 'storage', icon: 'storage', permissions: ['system:storages:list'], value: StorageConfig },
+  { name: '客户端配置', key: 'client', icon: 'mobile', permissions: ['system:clients:list'], value: ClientConfig },
 ]
 
 const menuList = computed(() => {

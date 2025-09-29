@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "柠檬控制台",
+  "description": "柠檬系统控制台",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },

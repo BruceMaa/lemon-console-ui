@@ -1,4 +1,5 @@
 import type * as T from './type'
+import type { Status } from '@/enums'
 import http from '@/utils/http'
 
 export type * from './type'
@@ -16,12 +17,12 @@ export function getStorage(id: string) {
 }
 
 /** @desc 新增存储 */
-export function addStorage(data: any) {
+export function addStorage(data: T.StorageReq) {
   return http.post(`${BASE_URL}`, data)
 }
 
 /** @desc 修改存储 */
-export function updateStorage(data: any, id: string) {
+export function updateStorage(data: T.StorageReq, id: string) {
   return http.put(`${BASE_URL}/${id}`, data)
 }
 
@@ -31,11 +32,11 @@ export function deleteStorage(id: string) {
 }
 
 /** @desc 修改存储状态 */
-export function updateStorageStatus(data: any, id: string) {
-  return http.put(`${BASE_URL}/${id}/status`, data)
+export function updateStorageStatus(data: { status: Status }, id: string) {
+  return http.patch(`${BASE_URL}/${id}/status`, data)
 }
 
 /** @desc 设置默认存储 */
 export function setDefaultStorage(id: string) {
-  return http.put(`${BASE_URL}/${id}/default`)
+  return http.patch(`${BASE_URL}/${id}/default`)
 }

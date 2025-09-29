@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import type { StorageReq } from '@/apis'
 import type { ColumnItem } from '@/components/GiForm'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
@@ -44,11 +45,14 @@ const formRef = ref<InstanceType<typeof GiForm>>()
 const { storage_type_enum } = useDict('storage_type_enum')
 
 const [form, resetForm] = useResetReactive({
+  name: '',
+  code: '',
+  domain: '',
   type: 2,
   isDefault: false,
   sort: 999,
-  status: 2,
-})
+  status: 0,
+} as StorageReq)
 
 const columns: ColumnItem[] = reactive([
   {
@@ -152,7 +156,7 @@ const columns: ColumnItem[] = reactive([
     props: {
       type: 'round',
       checkedValue: 1,
-      uncheckedValue: 2,
+      uncheckedValue: 0,
       checkedText: '启用',
       uncheckedText: '禁用',
     },
@@ -195,7 +199,7 @@ const onAdd = (type: number) => {
   reset()
   dataId.value = ''
   form.type = type
-  storageType.value = storage_type_enum.value.find((item) => item.value === type)?.label || '本地存储'
+  storageType.value = storage_type_enum.value.find((item) => item.value === String(type))?.label || '本地存储'
   visible.value = true
 }
 

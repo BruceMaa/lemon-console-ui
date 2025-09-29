@@ -1,10 +1,10 @@
 <template>
   <a-menu class="right-menu">
-    <a-menu-item v-permission="['system:dict:update']" title="修改" @click="onClick('update')">
+    <a-menu-item v-permission="['system:dicts:update']" title="修改" @click="onClick('update')">
       <span>修改</span>
     </a-menu-item>
     <a-menu-item
-      v-permission="['system:dict:delete']"
+      v-permission="['system:dicts:delete']"
       class="danger"
       :disabled="data.isSystem"
       :title="data.isSystem ? '系统内置数据不能删除' : '删除'"

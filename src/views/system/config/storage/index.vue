@@ -43,7 +43,7 @@ import StorageOss from './StorageOss.vue'
 defineOptions({ name: 'SystemStorage' })
 
 const queryForm = reactive<StorageQuery>({
-  sort: ['createTime,desc'],
+  sort: ['createdAt,desc'],
 })
 
 const loading = ref(false)
