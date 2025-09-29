@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Status } from '@/types/global'
+import type { Status } from '@/enums'
 
 defineOptions({ name: 'GiCellStatus' })
 

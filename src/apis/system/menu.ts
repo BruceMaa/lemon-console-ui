@@ -8,7 +8,7 @@ const BASE_URL = '/system/menus'
 
 /** @desc 查询菜单列表 */
 export function listMenu(query?: T.MenuQuery) {
-  return http.get<T.MenuResp[]>(`${BASE_URL}/tree`, query)
+  return http.get<T.MenuTreeResp[]>(`${BASE_URL}/tree`, query)
 }
 
 /** @desc 查询菜单详情 */
@@ -17,12 +17,12 @@ export function getMenu(id: string) {
 }
 
 /** @desc 新增菜单 */
-export function addMenu(data: any) {
-  return http.post<boolean>(`${BASE_URL}`, data)
+export function addMenu(data: T.MenuReq) {
+  return http.post(`${BASE_URL}`, data)
 }
 
 /** @desc 修改菜单 */
-export function updateMenu(data: any, id: string) {
+export function updateMenu(data: T.MenuReq, id: string) {
   return http.put(`${BASE_URL}/${id}`, data)
 }
 

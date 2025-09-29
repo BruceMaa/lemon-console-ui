@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 interface Props {
-  name: string
+  name?: string
   color?: string
   size?: string | number
 }

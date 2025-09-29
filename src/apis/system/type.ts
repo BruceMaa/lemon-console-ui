@@ -1,5 +1,5 @@
 import type { AuthType, Gender, MenuType, Status, StorageType } from '@/enums'
-import type { BaseDetailResp } from '@/types/global'
+import type { BaseDetailResp, BaseResp } from '@/types/global'
 
 /** 字典类型 */
 export interface DictReq {
@@ -145,27 +145,128 @@ export interface RoleUserQuery {
 export interface RoleUserPageQuery extends RoleUserQuery, PageQuery {}
 
 /** 菜单类型 */
-export interface MenuResp {
-  id: string
-  title: string
-  parentId: string
-  type: MenuType
-  path: string
-  name: string
-  component: string
-  redirect: string
-  icon: string
-  isExternal: boolean
-  isCache: boolean
-  isHidden: boolean
-  permission: string
+export interface MenuReq {
+  /**
+   * 组件路径
+   */
+  component?: string
+  /**
+   * 图标
+   */
+  icon?: string
+  /**
+   * 是否缓存
+   */
+  isCache?: boolean
+  /**
+   * 是否外链
+   */
+  isExternal?: boolean
+  /**
+   * 是否隐藏
+   */
+  isHidden?: boolean
+  /**
+   * 组件名称
+   */
+  name?: string
+  /**
+   * 上级菜单 ID
+   */
+  parentId?: number
+  /**
+   * 路由地址
+   */
+  path?: string
+  /**
+   * 权限标识
+   */
+  permission?: string
+  /**
+   * 重定向地址
+   */
+  redirect?: string
+  /**
+   * 排序
+   */
   sort: number
+  /**
+   * 状态<span style='color:red'>{1=启用, 0=禁用}</span>
+   */
   status: Status
-  createdUsername: string
-  createdAt: string
-  modifiedUsername: string
-  modifiedAt: string
-  children: MenuResp[]
+  /**
+   * 标题
+   */
+  title: string
+  /**
+   * 类型<span style='color:red'>{1=目录, 2=菜单, 3=按钮}</span>
+   */
+  type: MenuType
+}
+
+/**
+ * 菜单树列表响应参数
+ */
+export interface MenuTreeResp extends MenuResp {
+  children: MenuTreeResp[]
+}
+export interface MenuResp extends BaseDetailResp {
+  /**
+   * 组件路径
+   */
+  component?: string
+  /**
+   * 图标
+   */
+  icon?: string
+  /**
+   * 是否缓存
+   */
+  isCache?: boolean
+  /**
+   * 是否外链
+   */
+  isExternal?: boolean
+  /**
+   * 是否隐藏
+   */
+  isHidden?: boolean
+  /**
+   * 组件名称
+   */
+  name?: string
+  /**
+   * 上级菜单 ID
+   */
+  parentId?: number
+  /**
+   * 路由地址
+   */
+  path?: string
+  /**
+   * 权限标识
+   */
+  permission?: string
+  /**
+   * 重定向地址
+   */
+  redirect?: string
+  /**
+   * 排序
+   */
+  sort?: number
+  /**
+   * 状态<span style='color:red'>{1=启用, 0=禁用}</span>
+   */
+  status?: Status
+  /**
+   * 标题
+   */
+  title?: string
+  /**
+   * 类型<span style='color:red'>{1=目录, 2=菜单, 3=按钮}</span>
+   */
+  type: MenuType
 }
 export interface MenuQuery {
   title?: string

@@ -1,5 +1,6 @@
 export * from './modules/useBreakpoint'
 export * from './modules/useChart'
+export * from './modules/useComponentPaths'
 export * from './modules/useDevice'
 export * from './modules/useDownload'
 export * from './modules/useLoading'
