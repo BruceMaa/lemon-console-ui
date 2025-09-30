@@ -1,4 +1,5 @@
 import type * as T from './type'
+import type { Status } from '@/enums'
 import type { LabelValueState } from '@/types/global'
 import http from '@/utils/http'
 
@@ -17,12 +18,12 @@ export function getRole(id: string) {
 }
 
 /** @desc 新增角色 */
-export function addRole(data: any) {
+export function addRole(data: T.RoleReq) {
   return http.post(`${BASE_URL}`, data)
 }
 
 /** @desc 修改角色 */
-export function updateRole(data: any, id: string) {
+export function updateRole(data: T.RoleReq, id: string) {
   return http.put(`${BASE_URL}/${id}`, data)
 }
 
@@ -37,18 +38,18 @@ export function listRolePermissionTree() {
 }
 
 /** @desc 修改角色权限 */
-export function updateRolePermission(id: string, data: any) {
-  return http.put(`${BASE_URL}/${id}/permission`, data)
+export function updateRolePermission(id: string, data: T.RolePermissionUpdateReq) {
+  return http.patch(`${BASE_URL}/${id}/permissions`, data)
 }
 
 /** @desc 查询角色关联用户 */
 export function listRoleUser(id: string, query: T.RoleUserPageQuery) {
-  return http.get<PageRes<T.RoleUserResp[]>>(`${BASE_URL}/${id}/user`, query)
+  return http.get<PageRes<T.RoleUserResp[]>>(`${BASE_URL}/${id}/users`, query)
 }
 
 /** @desc 分配角色给用户 */
 export function assignToUsers(id: string, userIds: Array<string>) {
-  return http.post(`${BASE_URL}/${id}/user`, userIds)
+  return http.patch(`${BASE_URL}/${id}/users`, userIds)
 }
 
 /** @desc 取消分配角色给用户 */
@@ -58,10 +59,10 @@ export function unassignFromUsers(userRoleIds: Array<string | number>) {
 
 /** @desc 查询角色关联用户 ID */
 export function listRoleUserId(id: string) {
-  return http.get(`${BASE_URL}/${id}/user/id`)
+  return http.get(`${BASE_URL}/${id}/user-id`)
 }
 
 /** @desc 查询角色字典 */
-export function listRoleDict(query?: { name: string, status: number }) {
+export function listRoleDict(query?: { name: string, status: Status }) {
   return http.get<LabelValueState[]>(`${BASE_URL}/dict`, query)
 }

@@ -1,10 +1,10 @@
 <template>
   <a-menu class="right-menu">
-    <a-menu-item v-permission="['system:role:update']" title="修改" @click="onClick('update')">
+    <a-menu-item v-permission="['system:roles:update']" title="修改" @click="onClick('update')">
       <span>修改</span>
     </a-menu-item>
     <a-menu-item
-      v-permission="['system:role:delete']"
+      v-permission="['system:roles:delete']"
       class="danger"
       :disabled="data.isSystem"
       :title="data.isSystem ? '该角色为系统内置角色' : '删除'"

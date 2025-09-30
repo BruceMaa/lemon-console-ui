@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Gender } from '@/enums'
+
 defineOptions({ name: 'GiCellGender' })
 
 const props = withDefaults(defineProps<Props>(), {
@@ -20,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 interface Props {
-  gender: 1 | 2 | 0
+  gender?: Gender
 }
 </script>
 

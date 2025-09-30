@@ -63,7 +63,6 @@
 
 <script setup lang="ts">
 import type { FormInstance, TreeNodeData } from '@arco-design/web-vue'
-import type { GiForm } from '@/components/GiForm'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 

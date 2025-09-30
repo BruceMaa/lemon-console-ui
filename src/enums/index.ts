@@ -12,3 +12,8 @@ export type AuthType = 'ACCOUNT' | 'PHONE' | 'EMAIL'
 
 /** 存储类型 */
 export type StorageType = 1 | 2
+
+/**
+ * 数据范围类型
+ */
+export type DataScopeType = 1 | 2 | 3 | 4 | 5

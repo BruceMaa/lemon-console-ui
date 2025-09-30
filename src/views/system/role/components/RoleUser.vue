@@ -62,9 +62,9 @@
 
 <script lang='tsx' setup>
 import type { TableInstance } from '@arco-design/web-vue'
-import type { RoleUserQuery, RoleUserResp } from '@/apis/system/role'
+import type { RoleUserQuery, RoleUserResp } from '@/apis'
 import { Message, Modal } from '@arco-design/web-vue'
-import { listRoleUser, unassignFromUsers } from '@/apis/system/role'
+import { listRoleUser, unassignFromUsers } from '@/apis'
 import { useResetReactive, useTable } from '@/hooks'
 import { isMobile } from '@/utils'
 import has from '@/utils/has'
@@ -152,7 +152,7 @@ const onMulDelete = () => {
 
 // 删除
 const onDelete = (record: RoleUserResp) => {
-  return handleDelete(() => unassignFromUsers([record.id]), {
+  return handleDelete(() => unassignFromUsers([record.id!]), {
     content: `是否确定取消分配角色给用户「${record.nickname}(${record.username})」？`,
     successTip: '取消成功',
     showModal: true,

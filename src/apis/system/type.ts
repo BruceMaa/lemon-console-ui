@@ -1,4 +1,4 @@
-import type { AuthType, Gender, MenuType, Status, StorageType } from '@/enums'
+import type { AuthType, DataScopeType, Gender, MenuType, Status, StorageType } from '@/enums'
 import type { BaseDetailResp, BaseResp } from '@/types/global'
 
 /** 字典类型 */
@@ -91,21 +91,78 @@ export interface UserQuery {
 export interface UserPageQuery extends UserQuery, PageQuery {}
 
 /** 角色类型 */
-export interface RoleResp {
-  id: string
-  name: string
+export interface RoleReq {
+  /**
+   * 编码
+   */
   code: string
-  sort: number
-  description: string
-  dataScope: number
-  isSystem: boolean
-  createdUsername: string
-  createdAt: string
-  modifiedUsername: string
-  modifiedAt: string
-  disabled: boolean
+  /**
+   * 数据权限<span style='color:red'>{1=全部数据权限, 2=本部门及以下数据权限, 3=本部门数据权限, 4=仅本人数据权限,
+   * 5=自定义数据权限}</span>
+   */
+  dataScope?: DataScopeType
+  /**
+   * 部门选择是否父子节点关联
+   */
+  deptCheckStrictly?: boolean
+  /**
+   * 权限范围：部门 ID 列表
+   */
+  deptIds?: number[]
+  /**
+   * 描述
+   */
+  description?: string
+  /**
+   * 名称
+   */
+  name: string
+  /**
+   * 排序
+   */
+  sort?: number
 }
-export type RoleDetailResp = RoleResp & {
+export interface RolePermissionUpdateReq {
+  /**
+   * 菜单选择是否父子节点关联
+   */
+  menuCheckStrictly?: boolean
+  /**
+   * 功能权限：菜单 ID 列表
+   */
+  menuIds?: number[]
+  /**
+   * 角色 ID
+   */
+  roleId?: number
+}
+export interface RoleResp extends BaseDetailResp {
+  /**
+   * 编码，编码
+   */
+  code?: string
+  /**
+   * 数据权限，数据权限
+   */
+  dataScope?: DataScopeType
+  /**
+   * 描述，描述
+   */
+  description?: string
+  /**
+   * 是否为系统内置数据，是否为系统内置数据
+   */
+  isSystem?: boolean
+  /**
+   * 名称，名称
+   */
+  name?: string
+  /**
+   * 排序，排序
+   */
+  sort?: number
+}
+export interface RoleDetailResp extends RoleResp {
   menuIds: Array<number>
   deptIds: Array<number>
   menuCheckStrictly: boolean
@@ -116,23 +173,63 @@ export interface RolePermissionResp {
   title: string
   parentId: string
   permission?: string
+  permissions?: string[]
   children?: RolePermissionResp[]
-  permissions?: RolePermissionResp[]
-  isChecked?: boolean
 }
 export interface RoleUserResp {
-  id: string
-  username: string
-  nickname: string
-  gender: Gender
-  description: string
-  status: Status
+  /**
+   * 部门 ID
+   */
+  deptId?: number
+  /**
+   * 所属部门
+   */
+  deptName?: string
+  /**
+   * 描述
+   */
+  description?: string
+  disabled?: boolean
+  /**
+   * 性别<span style='color:red'>{0=未知, 1=男, 2=女}</span>
+   */
+  gender?: Gender
+  /**
+   * ID
+   */
+  id?: number
+  /**
+   * 是否为系统内置数据
+   */
   isSystem?: boolean
-  deptId: string
-  deptName: string
-  roleIds: Array<number>
-  roleNames: Array<string>
-  disabled: boolean
+  /**
+   * 昵称
+   */
+  nickname?: string
+  /**
+   * 角色 ID
+   */
+  roleId?: number
+  /**
+   * 角色 ID 列表
+   */
+  roleIds?: number[]
+  /**
+   * 角色名称列表
+   */
+  roleNames?: string[]
+  /**
+   * 状态<span style='color:red'>{1=启用, 0=禁用}</span>
+   */
+  status?: Status
+  /**
+   * 用户 ID
+   */
+  userId?: number
+  /**
+   * 用户名
+   */
+  username?: string
 }
 export interface RoleQuery {
   description?: string
