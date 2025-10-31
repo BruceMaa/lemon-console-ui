@@ -54,12 +54,12 @@ export function assignToUsers(id: string, userIds: Array<string>) {
 
 /** @desc 取消分配角色给用户 */
 export function unassignFromUsers(userRoleIds: Array<string | number>) {
-  return http.del(`${BASE_URL}/user`, userRoleIds)
+  return http.del(`${BASE_URL}/users`, userRoleIds)
 }
 
 /** @desc 查询角色关联用户 ID */
 export function listRoleUserId(id: string) {
-  return http.get(`${BASE_URL}/${id}/user-id`)
+  return http.get(`${BASE_URL}/${id}/user-ids`)
 }
 
 /** @desc 查询角色字典 */

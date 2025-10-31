@@ -3,7 +3,7 @@ import { useUserStore } from '@/stores'
 
 /**
  * 检查元素权限的自定义指令函数
- * 使用 v-permission="['system:user:create']" 指令
+ * 使用 v-permission="['system:users:create']" 指令
  * @param el - 绑定指令的DOM元素
  * @param binding - 指令绑定对象，包含指令的值等
  */

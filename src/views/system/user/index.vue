@@ -18,17 +18,17 @@
         <GiForm v-model="queryForm" search :columns="queryFormColumns" size="medium" @search="search" @reset="reset"></GiForm>
       </template>
       <template #toolbar-left>
-        <a-button v-permission="['system:user:create']" type="primary" @click="onAdd">
+        <a-button v-permission="['system:users:create']" type="primary" @click="onAdd">
           <template #icon><icon-plus /></template>
           <template #default>新增</template>
         </a-button>
-        <a-button v-permission="['system:user:import']" @click="onImport">
+        <a-button v-permission="['system:users:import']" @click="onImport">
           <template #icon><icon-upload /></template>
           <template #default>导入</template>
         </a-button>
       </template>
       <template #toolbar-right>
-        <a-button v-permission="['system:user:export']" @click="onExport">
+        <a-button v-permission="['system:users:export']" @click="onExport">
           <template #icon><icon-download /></template>
           <template #default>导出</template>
         </a-button>
@@ -51,18 +51,18 @@
       </template>
       <template #action="{ record }">
         <a-space>
-          <a-link v-permission="['system:user:get']" title="详情" @click="onDetail(record)">详情</a-link>
-          <a-link v-permission="['system:user:update']" title="修改" @click="onUpdate(record)">修改</a-link>
+          <a-link v-permission="['system:users:get']" title="详情" @click="onDetail(record)">详情</a-link>
+          <a-link v-permission="['system:users:update']" title="修改" @click="onUpdate(record)">修改</a-link>
           <a-dropdown>
-            <a-button v-if="has.hasPermOr(['system:user:resetPwd', 'system:user:updateRole', 'system:user:delete'])" type="text" size="mini" title="更多">
+            <a-button v-if="has.hasPermOr(['system:users:resetPwd', 'system:users:updateRole', 'system:users:delete'])" type="text" size="mini" title="更多">
               <template #icon>
                 <icon-more :size="16" />
               </template>
             </a-button>
             <template #content>
-              <a-doption v-permission="['system:user:resetPwd']" title="重置密码" @click="onResetPwd(record)">重置密码</a-doption>
-              <a-doption v-permission="['system:user:updateRole']" :disabled="record.isSystem" title="分配角色" @click="onUpdateRole(record)">分配角色</a-doption>
-              <a-doption v-permission="['system:user:delete']">
+              <a-doption v-permission="['system:users:resetPwd']" title="重置密码" @click="onResetPwd(record)">重置密码</a-doption>
+              <a-doption v-permission="['system:users:updateRole']" :disabled="record.isSystem" title="分配角色" @click="onUpdateRole(record)">分配角色</a-doption>
+              <a-doption v-permission="['system:users:delete']">
                 <a-link
                   status="danger"
                   :disabled="record.isSystem"
@@ -130,7 +130,7 @@ const queryFormColumns: ColumnItem[] = reactive([
   {
     type: 'range-picker',
     label: '创建时间',
-    field: 'createTime',
+    field: 'createdAt',
     span: { xs: 24, sm: 10, xxl: 8 },
   },
 ])
@@ -180,11 +180,11 @@ const columns: TableInstance['columns'] = [
     align: 'center',
     fixed: !isMobile() ? 'right' : undefined,
     show: has.hasPermOr([
-      'system:user:get',
-      'system:user:update',
-      'system:user:resetPwd',
-      'system:user:updateRole',
-      'system:user:delete',
+      'system:users:get',
+      'system:users:update',
+      'system:users:resetPwd',
+      'system:users:updateRole',
+      'system:users:delete',
     ]),
   },
 ]

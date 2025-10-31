@@ -74,7 +74,7 @@
           <a-switch
             v-model="form.defaultStatus"
             :checked-value="1"
-            :unchecked-value="2"
+            :unchecked-value="0"
             checked-text="启用"
             unchecked-text="禁用"
             type="round"
@@ -87,7 +87,7 @@
 
 <script setup lang="ts">
 import type { FormInstance, RequestOption } from '@arco-design/web-vue'
-import type { UserImportResp } from '@/apis'
+import type { UserImportParseResp } from '@/apis'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import {
@@ -116,7 +116,7 @@ const [form, resetForm] = useResetReactive({
   defaultStatus: 1,
 })
 
-const dataResult = ref<UserImportResp>({
+const dataResult = ref<UserImportParseResp>({
   importKey: '',
   totalRows: 0,
   validRows: 0,

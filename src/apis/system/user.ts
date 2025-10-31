@@ -20,12 +20,12 @@ export function getUser(id: string) {
 }
 
 /** @desc 新增用户 */
-export function addUser(data: any) {
+export function addUser(data: T.UserReq) {
   return http.post(`${BASE_URL}`, data)
 }
 
 /** @desc 修改用户 */
-export function updateUser(data: any, id: string) {
+export function updateUser(data: T.UserReq, id: string) {
   return http.put(`${BASE_URL}/${id}`, data)
 }
 
@@ -41,17 +41,17 @@ export function exportUser(query: T.UserQuery) {
 
 /** @desc 下载用户导入模板 */
 export function downloadUserImportTemplate() {
-  return http.download(`${BASE_URL}/import/template`)
+  return http.download(`${BASE_URL}/import-template`)
 }
 
 /** @desc 解析用户导入数据 */
 export function parseImportUser(data: FormData) {
-  return http.post(`${BASE_URL}/import/parse`, data)
+  return http.post<T.UserImportParseResp>(`${BASE_URL}/import/parse`, data)
 }
 
 /** @desc 导入用户 */
-export function importUser(data: any) {
-  return http.post(`${BASE_URL}/import`, data)
+export function importUser(data: T.UserImportReq) {
+  return http.post<T.UserImportResp>(`${BASE_URL}/import`, data)
 }
 
 /** @desc 重置密码 */
@@ -61,7 +61,7 @@ export function resetUserPwd(data: any, id: string) {
 
 /** @desc 分配角色 */
 export function updateUserRole(data: { roleIds: string[] }, id: string) {
-  return http.patch(`${BASE_URL}/${id}/role`, data)
+  return http.patch(`${BASE_URL}/${id}/roles`, data)
 }
 
 /** @desc 查询用户字典 */

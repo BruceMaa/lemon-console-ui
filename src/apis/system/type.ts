@@ -45,50 +45,199 @@ export interface DictItemPageQuery extends DictItemQuery, PageQuery {
 }
 
 /** 用户类型 */
-export interface UserResp {
-  id: string
-  username: string
-  nickname: string
-  avatar: string
+/**
+ * UserReq，用户创建或修改请求参数
+ */
+export interface UserReq {
+  /**
+   * 所属部门
+   */
+  deptId: number
+  /**
+   * 描述
+   */
+  description?: string
+  /**
+   * 邮箱
+   */
+  email?: string
+  /**
+   * 性别<span style='color:red'>{0=未知, 1=男, 2=女}</span>
+   */
   gender: Gender
-  email: string
-  phone: string
-  description: string
-  status: Status
+  /**
+   * 昵称
+   */
+  nickname: string
+  /**
+   * 密码
+   */
+  password: string
+  /**
+   * 手机号
+   */
+  phone?: string
+  /**
+   * 所属角色
+   */
+  roleIds: number[]
+  /**
+   * 状态<span style='color:red'>{1=启用, 0=禁用}</span>
+   */
+  status?: Status
+  /**
+   * 用户名
+   */
+  username: string
+}
+/**
+ * UserResp
+ *
+ * BaseDetailResp
+ *
+ * BaseResp
+ *
+ * 详情响应参数基类
+ */
+export interface UserResp extends BaseDetailResp {
+  /**
+   * 头像地址
+   */
+  avatar?: string
+  /**
+   * 部门 ID
+   */
+  deptId?: number
+  /**
+   * 所属部门
+   */
+  deptName?: string
+  /**
+   * 描述
+   */
+  description?: string
+  /**
+   * 邮箱
+   */
+  email?: string
+  /**
+   * 性别<span style='color:red'>{0=未知, 1=男, 2=女}</span>
+   */
+  gender?: Gender
+  /**
+   * 是否为系统内置数据
+   */
   isSystem?: boolean
-  createdUsername: string
-  createdAt: string
-  modifiedUsername: string
-  modifiedAt: string
-  deptId: string
-  deptName: string
-  roleIds: Array<number>
-  roleNames: Array<string>
-  disabled: boolean
+  /**
+   * 昵称
+   */
+  nickname?: string
+  /**
+   * 手机号码
+   */
+  phone?: string
+  /**
+   * 角色 ID 列表
+   */
+  roleIds?: number[]
+  /**
+   * 角色名称列表
+   */
+  roleNames?: string[]
+  /**
+   * 状态<span style='color:red'>{1=启用, 0=禁用}</span>
+   */
+  status?: Status
+  /**
+   * 用户名
+   */
+  username?: string
 }
-export type UserDetailResp = UserResp & {
+export interface UserDetailResp extends UserResp {
   pwdResetTime?: string
-}
-
-export interface UserImportResp {
-  importKey: string
-  totalRows: number
-  validRows: number
-  duplicateUserRows: number
-  duplicateEmailRows: number
-  duplicatePhoneRows: number
 }
 
 export interface UserQuery {
   description?: string
   status?: Status
-  createAt?: Array<string>
+  createdAt?: Array<string>
   deptId?: string
   sort: Array<string>
   userIds?: Array<string>
   roleId?: string
 }
 export interface UserPageQuery extends UserQuery, PageQuery {}
+/**
+ * UserImportParseResp，用户导入解析响应参数
+ */
+export interface UserImportParseResp {
+  /**
+   * 重复邮箱行数
+   */
+  duplicateEmailRows?: number
+  /**
+   * 重复手机行数
+   */
+  duplicatePhoneRows?: number
+  /**
+   * 重复行数
+   */
+  duplicateUserRows?: number
+  /**
+   * 导入会话Key
+   */
+  importKey?: string
+  /**
+   * 总计行数
+   */
+  totalRows?: number
+  /**
+   * 有效行数
+   */
+  validRows?: number
+}
+/**
+ * UserImportReq，用户导入请求参数
+ */
+export interface UserImportReq {
+  /**
+   * 默认状态<span style='color:red'>{1=启用, 0=禁用}</span>
+   */
+  defaultStatus?: Status
+  /**
+   * 重复邮箱策略<span style='color:red'>{1=跳过该行, 2=修改数据, 3=停止导入}</span>
+   */
+  duplicateEmail: number
+  /**
+   * 重复手机策略<span style='color:red'>{1=跳过该行, 2=修改数据, 3=停止导入}</span>
+   */
+  duplicatePhone: number
+  /**
+   * 重复用户策略<span style='color:red'>{1=跳过该行, 2=修改数据, 3=停止导入}</span>
+   */
+  duplicateUser: number
+  /**
+   * 导入会话KEY
+   */
+  importKey: string
+}
+/**
+ * UserImportResp，用户导入结果响应参数
+ */
+export interface UserImportResp {
+  /**
+   * 新增行数
+   */
+  insertRows?: number
+  /**
+   * 总计行数
+   */
+  totalRows?: number
+  /**
+   * 修改行数
+   */
+  updateRows?: number
+}
 
 /** 角色类型 */
 export interface RoleReq {

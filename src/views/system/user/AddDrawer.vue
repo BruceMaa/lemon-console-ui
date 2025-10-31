@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import type { TreeNodeData } from '@arco-design/web-vue'
 import type { ColumnItem } from '@/components/GiForm'
-import type { Gender, Status } from '@/types/global'
+import type { Gender, Status } from '@/enums'
 import { Message } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
 import { addUser, getUser, updateUser } from '@/apis'
@@ -150,7 +150,7 @@ const columns: ColumnItem[] = reactive([
     props: {
       type: 'round',
       checkedValue: 1,
-      uncheckedValue: 2,
+      uncheckedValue: 0,
       checkedText: '启用',
       uncheckedText: '禁用',
     },
