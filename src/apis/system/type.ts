@@ -279,7 +279,7 @@ export interface RolePermissionUpdateReq {
   /**
    * 功能权限：菜单 ID 列表
    */
-  menuIds?: number[]
+  menuIds?: (string | number)[]
   /**
    * 角色 ID
    */
@@ -322,7 +322,6 @@ export interface RolePermissionResp {
   title: string
   parentId: string
   permission?: string
-  permissions?: string[]
   children?: RolePermissionResp[]
 }
 export interface RoleUserResp {

@@ -159,10 +159,10 @@ const onClearCache = () => {
 }
 
 // 根据选中字典查询
-const handleSelectDict = (dict: { dictId: string, dictName: string, dictCode: string }) => {
+const handleSelectDict = (dict: { dictId: string, dictName?: string, dictCode?: string }) => {
   queryForm.dictId = dict.dictId
-  dictName.value = dict.dictName
-  dictCode.value = dict.dictCode
+  dictName.value = dict.dictName || ''
+  dictCode.value = dict.dictCode || ''
   search()
 }
 

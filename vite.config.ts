@@ -5,7 +5,7 @@ import { defineConfig, loadEnv } from 'vite'
 import createVitePlugins from './config/plugins'
 
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
-  const env = loadEnv(mode, process.cwd()) as ImportMetaEnv
+  const env = loadEnv(mode, process.cwd()) as unknown as ImportMetaEnv
   const isProduction = mode === 'production'
 
   return {
@@ -23,7 +23,6 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       preprocessorOptions: {
         scss: {
           additionalData: `@use "@/styles/var.scss" as *;`,
-          api: 'modern-compiler',
         },
       },
     },

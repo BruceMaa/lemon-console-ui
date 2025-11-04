@@ -121,17 +121,17 @@
 </script>
 
 <script setup lang="ts">
+import type { CronPropType } from '@/components/GenCron/CronForm/type'
 import { useDebounceFn } from '@vueuse/core'
 import CronParser from 'cron-parser'
-import SecondForm from '@/components/GenCron/CronForm/component/second-form.vue'
-import MinuteForm from '@/components/GenCron/CronForm/component/minute-form.vue'
-import HourForm from '@/components/GenCron/CronForm/component/hour-form.vue'
 import DayForm from '@/components/GenCron/CronForm/component/day-form.vue'
+import HourForm from '@/components/GenCron/CronForm/component/hour-form.vue'
+import MinuteForm from '@/components/GenCron/CronForm/component/minute-form.vue'
 import MonthForm from '@/components/GenCron/CronForm/component/month-form.vue'
+import SecondForm from '@/components/GenCron/CronForm/component/second-form.vue'
 import WeekForm from '@/components/GenCron/CronForm/component/week-form.vue'
 import YearForm from '@/components/GenCron/CronForm/component/year-form.vue'
 import { dateFormat } from '@/utils'
-import type { CronPropType } from '@/components/GenCron/CronForm/type'
 
 const props = withDefaults(defineProps<Partial<CronPropType>>(), {
   disabled: false,
@@ -191,7 +191,7 @@ const calculateNextExecutionTimes = (corn: string = cronExpression.value) => {
     const parse = expressionNoYear(corn)
     // 解析表达式
     const date = dateFormat(new Date())
-    const iter = CronParser.parseExpression(parse, {
+    const iter = CronParser.parse(parse, {
       currentDate: date,
     })
     const result: string[] = []

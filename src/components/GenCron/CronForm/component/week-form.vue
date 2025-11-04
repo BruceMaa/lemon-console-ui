@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { TypeEnum, WEEK_MAP, useFormProps, useFormSetup, useFromEmits } from './use-mixin'
+import { TypeEnum, useFormProps, useFormSetup, useFromEmits, WEEK_MAP } from './use-mixin'
 
 export default defineComponent({
   name: 'WeekForm',
@@ -56,6 +56,7 @@ export default defineComponent({
   emits: useFromEmits(),
   setup(props, context) {
     const disabledChoice = computed(() => {
+      // @ts-expect-error  已经定义过了
       return (props.day && props.day !== '?') || props.disabled
     })
     const setup = useFormSetup(props, context, {
@@ -92,6 +93,7 @@ export default defineComponent({
       class: ['w80'],
     }))
 
+    // @ts-expect-error  已经定义过了
     watch(() => props.day, () => {
       setup.updateValue(disabledChoice.value ? '?' : setup.computeValue.value)
     })

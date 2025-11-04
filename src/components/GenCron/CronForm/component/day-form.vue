@@ -54,11 +54,13 @@ export default defineComponent({
     defaultValue: '*',
     props: {
       week: { type: String, default: '?' },
+      disabled: { type: Boolean, default: false },
     },
   }),
   emits: useFromEmits(),
   setup(props, context) {
     const isDisabled = computed(() => {
+      // @ts-expect-error  已经定义过了
       return (props.week && props.week !== '?') || props.disabled
     })
     const setup = useFormSetup(props, context, {
@@ -71,11 +73,13 @@ export default defineComponent({
       disabled: isDisabled,
     })
     const typeWorkAttrs = computed(() => ({
+      // @ts-expect-error  已经定义过了
       disabled: setup.type.value !== TypeEnum.work || props.disabled || isDisabled.value,
       ...setup.inputNumberAttrs.value,
     }))
 
     watch(
+      // @ts-expect-error  已经定义过了
       () => props.week,
       () => {
         setup.updateValue(isDisabled.value ? '?' : setup.computeValue.value)

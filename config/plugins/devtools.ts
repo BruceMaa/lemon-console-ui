@@ -1,6 +1,6 @@
 import VueDevTools from 'vite-plugin-vue-devtools'
 
 export default function createDevtools(env: ImportMetaEnv) {
-  const { VITE_OPEN_DEVTOOLS } = env
+  const { VITE_OPEN_DEVTOOLS } = env as any
   return VITE_OPEN_DEVTOOLS === 'true' && VueDevTools()
 }

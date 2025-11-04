@@ -9,11 +9,12 @@
 </template>
 
 <script setup lang="ts">
-import type { LabelValueState } from '@/types/global'
 import type { GiCellTagType } from '@/components/GiCell/type'
+import type { LabelValueState } from '@/types/global'
 
 defineOptions({ name: 'GiCellTag' })
 const props = withDefaults(defineProps<Partial<GiCellTagType>>(), {
+  // @ts-expect-error 不需要检查
   dict: [{
     label: '',
     value: '',
@@ -26,7 +27,7 @@ const dictItem = computed((): LabelValueState => {
     return props.dict.find(
       (d) => d.value === String(props.value) || d.value === Number(props.value),
     ) || { label: '', value: '' }
-  } catch (error) {
+  } catch {
     return { label: '', value: '' }
   }
 })

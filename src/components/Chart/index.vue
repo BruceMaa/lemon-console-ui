@@ -5,8 +5,8 @@
 <script setup lang="ts">
 import { registerMap } from 'echarts/core'
 import VCharts from 'vue-echarts'
-import worldMap from './world.json'
 import chinaMap from './china.json'
+import worldMap from './world.json'
 
 defineProps({
   option: {
@@ -29,8 +29,8 @@ defineProps({
   },
 })
 
-registerMap('world', worldMap)
-registerMap('china', chinaMap)
+registerMap('world', worldMap as any)
+registerMap('china', chinaMap as any)
 
 const chart = ref(null)
 defineExpose({

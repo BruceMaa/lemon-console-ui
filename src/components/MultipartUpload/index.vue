@@ -83,8 +83,8 @@
 </template>
 
 <script lang="ts" setup>
-import { h, ref, resolveComponent } from 'vue'
 import { IconClose, IconDelete, IconPause, IconPlayArrow, IconRefresh } from '@arco-design/web-vue/es/icon'
+import { h, ref, resolveComponent } from 'vue'
 import { useMultipartUploader } from '@/hooks/modules/useMultipartUploader'
 import { getFilesFromDataTransferItems, isFileSystemAccessAPISupported } from '@/utils/drag-drop-file-util'
 

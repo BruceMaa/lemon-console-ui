@@ -10,11 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import CodeMirror from 'vue-codemirror6'
 import { javascript } from '@codemirror/lang-javascript'
 import { vue } from '@codemirror/lang-vue'
-import { githubLight } from '@ddietr/codemirror-themes/github-light'
 import { oneDark } from '@codemirror/theme-one-dark'
+import { githubLight } from '@ddietr/codemirror-themes/github-light'
+import CodeMirror from 'vue-codemirror6'
 import { useAppStore } from '@/stores'
 
 const props = withDefaults(defineProps<Props>(), {

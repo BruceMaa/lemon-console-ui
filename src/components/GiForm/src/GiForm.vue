@@ -21,7 +21,7 @@
             >
               <template v-if="item.type === 'range-picker'">
                 <DateRangePicker
-                  v-bind="(item.props as A.RangePickerInstance['$props'])"
+                  v-bind="(item.props as RangePickerInstance['$props'])"
                   :model-value="modelValue[item.field as keyof typeof modelValue]"
                   @update:model-value="updateValue($event, item.field)"
                 />
@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance, GridItemProps, GridProps } from '@arco-design/web-vue'
+import type { FormInstance, GridItemProps, GridProps, RangePickerInstance } from '@arco-design/web-vue'
 import type { ColumnItem } from './type'
 import { cloneDeep, omit } from 'lodash-es'
 
@@ -114,6 +114,7 @@ const props = withDefaults(defineProps<Props>(), {
   scrollToFirstError: true,
   defaultCollapsed: false,
   search: false,
+  // @ts-expect-error 不需要检查
   gridItemProps: { span: { xs: 24, sm: 8, xxl: 8 } },
   searchBtnText: '搜索',
   hideFoldBtn: false,

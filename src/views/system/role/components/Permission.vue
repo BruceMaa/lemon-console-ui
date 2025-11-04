@@ -39,7 +39,7 @@
       <IconRight v-else />
     </template>
     <template #title="{ record }">
-      <GiSvgIcon :name="record.icon" :size="15" />
+      <!-- <GiSvgIcon :name="record.icon" :size="15" /> -->
       <span style="margin-left: 5px; vertical-align: middle">{{ record.title }}</span>
     </template>
     <template #permissions="{ record }">
@@ -74,6 +74,7 @@ interface Props {
 }
 
 interface ExtendedRolePermissionResp extends RolePermissionResp {
+  permissions?: ExtendedRolePermissionResp[]
   checkedPermissions?: (string | number)[]
   isChecked?: boolean
   disabled?: boolean
@@ -102,7 +103,7 @@ const transformMenu = (menus: RolePermissionResp[]): ExtendedRolePermissionResp[
     // 如果当前项有子项，递归处理子项
     if (item.children && item.children.length > 0) {
       // 过滤出 permission 不为空的子项
-      const permissions = item.children.filter((child) => child.permission).map((child): RolePermissionResp => ({
+      const permissions = item.children.filter((child) => child.permission).map((child): ExtendedRolePermissionResp => ({
         id: child.id,
         title: child.title,
         parentId: child.parentId,
@@ -115,8 +116,8 @@ const transformMenu = (menus: RolePermissionResp[]): ExtendedRolePermissionResp[
 
       // 如果有权限，将其添加到当前项的 permissions 属性中
       if (permissions.length > 0) {
-        (item as ExtendedRolePermissionResp).permissions = permissions
-        ;(item as ExtendedRolePermissionResp).checkedPermissions = permissions.filter((permission) => permission.isChecked).map((permission) => permission.id)
+        (item as ExtendedRolePermissionResp).permissions = permissions;
+        (item as ExtendedRolePermissionResp).checkedPermissions = permissions.filter((permission) => permission.isChecked).map((permission) => permission.id)
       }
 
       // 递归处理剩余的子项
@@ -370,7 +371,7 @@ const fetchRole = async (id: string) => {
     // 查询角色详情
     const { data } = await getRole(id)
     if (!disabled.value) {
-      disabled.value = data.isSystem
+      disabled.value = data.isSystem || false
     }
     isCascade.value = data.menuCheckStrictly
     // 更新选中键集合

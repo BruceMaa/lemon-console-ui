@@ -4,7 +4,7 @@
     :width="width >= 1350 ? 1350 : '100%'"
     :on-before-close="onClose"
     :footer="false"
-    esc-to-close="esc-to-close"
+    :esc-to-close="true"
     @close="onClose"
   >
     <template #title>
@@ -45,15 +45,15 @@
 </template>
 
 <script setup lang="ts">
-import VueOfficePdf from '@vue-office/pdf'
-import VueOfficeDocx from '@vue-office/docx'
-import '@vue-office/docx/lib/index.css'
-import VueOfficeExcel from '@vue-office/excel'
-import '@vue-office/excel/lib/index.css'
-import { Message } from '@arco-design/web-vue'
-import { useWindowSize } from '@vueuse/core'
 import type { FilePreview } from '@/components/FilePreview/type'
-import { ExcelTypes, WordTypes } from '@/constant/file'
+import { Message } from '@arco-design/web-vue'
+import VueOfficeDocx from '@vue-office/docx'
+import VueOfficeExcel from '@vue-office/excel'
+import VueOfficePdf from '@vue-office/pdf'
+import { useWindowSize } from '@vueuse/core'
+import { ExcelTypes, WordTypes } from '@/constants/file'
+import '@vue-office/docx/lib/index.css'
+import '@vue-office/excel/lib/index.css'
 
 const visible = ref<boolean>(false)
 const loading = ref<boolean>(false)
