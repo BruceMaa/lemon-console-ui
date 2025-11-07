@@ -1,5 +1,5 @@
-import antfu from '@antfu/eslint-config';
-import autoImportConfig from './.eslintrc-auto-import.json';
+import antfu from '@antfu/eslint-config'
+import autoImportConfig from './.eslintrc-auto-import.json'
 
 export default antfu(
   {
@@ -25,6 +25,7 @@ export default antfu(
     },
     typescript: true,
     ignores: [
+      'src/main.ts',
       '**/*.md',
       '.github',
       '.image',

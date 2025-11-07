@@ -37,8 +37,7 @@ const links = [
   { text: '角色管理', icon: 'user-group', path: '/system/role', permission: 'system:roles:list' },
   { text: '菜单管理', icon: 'menu', path: '/system/menu', permission: 'system:menus:list' },
   { text: '文件管理', icon: 'file', path: '/system/file', permission: 'system:files:list' },
-  { text: '代码生成', icon: 'code', path: '/code/generator', permission: 'code:generator:list' },
-  { text: '系统日志', icon: 'history', path: '/monitor/log', permission: 'monitor:log:list' },
+  { text: '系统日志', icon: 'history', path: '/monitor/log', permission: 'monitor:logs:list' },
 ]
 </script>
 
