@@ -630,6 +630,170 @@ export interface MessageQuery {
 export interface MessagePageQuery extends MessageQuery, PageQuery {
 }
 
+/**
+ * FileStatisticsResp，文件资源统计响应参数
+ */
+export interface FileStatisticsResp {
+  /**
+   * 分类数据
+   */
+  data?: FileStatisticsResp[]
+  unit?: string
+  /**
+   * 数量
+   */
+  number: number
+  /**
+   * 大小（字节）
+   */
+  size: number
+  /**
+   * 类型<span style='color:red'>{0=目录, 1=其他, 2=图片, 3=文档, 4=视频, 5=音频}</span>
+   */
+  type?: number
+}
+
+export interface FileQuery {
+  originalName?: string
+  parentPath?: string
+  type?: number
+  sort: Array<string>
+}
+
+export interface FilePageQuery extends FileQuery, PageQuery {}
+
+/**
+ * FileResp，文件响应参数
+ */
+export interface FileResp {
+  /**
+   * 创建时间，创建时间
+   */
+  createdAt?: Date
+  /**
+   * 创建者名称，创建者名称
+   */
+  createdUsername?: string
+  /**
+   * 是否禁用修改，是否禁用修改
+   */
+  disabled?: boolean
+  /**
+   * 主键ID，主键ID
+   */
+  id: string
+  /**
+   * 更新时间，更新时间
+   */
+  modifiedAt?: Date
+  /**
+   * 更新者名称，更新者名称
+   */
+  modifiedUsername?: string
+  /**
+   * 内容类型
+   */
+  contentType?: string
+  /**
+   * 扩展名
+   */
+  extension: string
+  /**
+   * 元数据
+   */
+  metadata?: string
+  /**
+   * 名称
+   */
+  name?: string
+  /**
+   * 原始名称
+   */
+  originalName?: string
+  /**
+   * 上级目录
+   */
+  parentPath?: string
+  /**
+   * 路径
+   */
+  path?: string
+  /**
+   * SHA256 值
+   */
+  sha256?: string
+  /**
+   * 大小（字节）
+   */
+  size: number
+  /**
+   * 存储 ID
+   */
+  storageId?: number
+  /**
+   * 存储名称
+   */
+  storageName?: string
+  /**
+   * 缩略图文件元数据
+   */
+  thumbnailMetadata?: string
+  /**
+   * 缩略图名称
+   */
+  thumbnailName?: string
+  /**
+   * 缩略图大小（字节)
+   */
+  thumbnailSize?: number
+  /**
+   * 缩略图 URL
+   */
+  thumbnailUrl?: string
+  /**
+   * 类型<span style='color:red'>{0=目录, 1=其他, 2=图片, 3=文档, 4=视频, 5=音频}</span>
+   */
+  type?: number
+  /**
+   * URL
+   */
+  url: string
+}
+/**
+ * FileReq，文件修改请求参数
+ */
+export interface FileReq {
+  /**
+   * 名称
+   */
+  originalName: string
+  /**
+   * 上级目录
+   */
+  parentPath?: string
+}
+/**
+ * FileUploadResp，文件上传响应参数
+ */
+export interface FileUploadResp {
+  /**
+   * 文件 id
+   */
+  id?: string
+  /**
+   * 元数据
+   */
+  metadata?: { [key: string]: string }
+  /**
+   * 缩略图文件 URL
+   */
+  thUrl?: string
+  /**
+   * 文件 URL
+   */
+  url?: string
+}
+
 /** 分片上传 - 初始化参数 */
 export interface MultiPartUploadInitReq {
   fileName: string
