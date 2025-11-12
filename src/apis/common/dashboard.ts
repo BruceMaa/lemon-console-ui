@@ -7,5 +7,5 @@ const BASE_URL = '/dashboard'
 
 /** @desc 查询公告列表 */
 export function listDashboardNotice() {
-  return http.get<T.DashboardNoticeResp[]>(`${BASE_URL}/notice`)
+  return http.get<T.DashboardNoticeResp[]>(`${BASE_URL}/notices`)
 }

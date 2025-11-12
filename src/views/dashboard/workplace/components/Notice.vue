@@ -43,8 +43,8 @@ const loading = ref(false)
 const getDataList = async () => {
   try {
     loading.value = true
-    // const res = await listDashboardNotice()
-    // dataList.value = res.data
+    const res = await listDashboardNotice()
+    dataList.value = res.data
   } finally {
     loading.value = false
   }

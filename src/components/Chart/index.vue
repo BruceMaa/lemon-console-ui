@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { registerMap } from 'echarts/core'
+import * as echarts from 'echarts'
 import VCharts from 'vue-echarts'
 import chinaMap from './china.json'
 import worldMap from './world.json'
@@ -29,8 +29,8 @@ defineProps({
   },
 })
 
-registerMap('world', worldMap as any)
-registerMap('china', chinaMap as any)
+echarts.registerMap('world', worldMap as any)
+echarts.registerMap('china', chinaMap as any)
 
 const chart = ref(null)
 defineExpose({
