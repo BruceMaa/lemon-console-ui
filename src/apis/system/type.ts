@@ -1,4 +1,4 @@
-import type { AuthType, DataScopeType, Gender, MenuType, Status, StorageType } from '@/enums'
+import type { AuthType, DataScopeType, Gender, MenuType, MessageType, NoticeMethod, NoticeScope, NoticeStatus, Status, StorageType } from '@/enums'
 import type { BaseDetailResp, BaseResp } from '@/types/global'
 
 /** 字典类型 */
@@ -24,7 +24,7 @@ export interface DictItemReq {
   sort: number
   description: string
   status: Status
-  dictId: number
+  dictId: string
 }
 export interface DictItemResp extends BaseDetailResp {
   label: string
@@ -33,7 +33,7 @@ export interface DictItemResp extends BaseDetailResp {
   sort: number
   description: string
   status: Status
-  dictId: number
+  dictId: string
 }
 export interface DictItemQuery {
   description?: string
@@ -52,7 +52,7 @@ export interface UserReq {
   /**
    * 所属部门
    */
-  deptId: number
+  deptId: string
   /**
    * 描述
    */
@@ -80,7 +80,7 @@ export interface UserReq {
   /**
    * 所属角色
    */
-  roleIds: number[]
+  roleIds: string[]
   /**
    * 状态<span style='color:red'>{1=启用, 0=禁用}</span>
    */
@@ -107,7 +107,7 @@ export interface UserResp extends BaseDetailResp {
   /**
    * 部门 ID
    */
-  deptId?: number
+  deptId?: string
   /**
    * 所属部门
    */
@@ -139,7 +139,7 @@ export interface UserResp extends BaseDetailResp {
   /**
    * 角色 ID 列表
    */
-  roleIds?: number[]
+  roleIds?: string[]
   /**
    * 角色名称列表
    */
@@ -257,7 +257,7 @@ export interface RoleReq {
   /**
    * 权限范围：部门 ID 列表
    */
-  deptIds?: number[]
+  deptIds?: string[]
   /**
    * 描述
    */
@@ -283,7 +283,7 @@ export interface RolePermissionUpdateReq {
   /**
    * 角色 ID
    */
-  roleId?: number
+  roleId?: string
 }
 export interface RoleResp extends BaseDetailResp {
   /**
@@ -312,8 +312,8 @@ export interface RoleResp extends BaseDetailResp {
   sort?: number
 }
 export interface RoleDetailResp extends RoleResp {
-  menuIds: Array<number>
-  deptIds: Array<number>
+  menuIds: Array<string>
+  deptIds: Array<string>
   menuCheckStrictly: boolean
   deptCheckStrictly: boolean
 }
@@ -328,7 +328,7 @@ export interface RoleUserResp {
   /**
    * 部门 ID
    */
-  deptId?: number
+  deptId?: string
   /**
    * 所属部门
    */
@@ -345,7 +345,7 @@ export interface RoleUserResp {
   /**
    * ID
    */
-  id?: number
+  id?: string
   /**
    * 是否为系统内置数据
    */
@@ -357,11 +357,11 @@ export interface RoleUserResp {
   /**
    * 角色 ID
    */
-  roleId?: number
+  roleId?: string
   /**
    * 角色 ID 列表
    */
-  roleIds?: number[]
+  roleIds?: string[]
   /**
    * 角色名称列表
    */
@@ -373,7 +373,7 @@ export interface RoleUserResp {
   /**
    * 用户 ID
    */
-  userId?: number
+  userId?: string
   /**
    * 用户名
    */
@@ -418,7 +418,7 @@ export interface MenuReq {
   /**
    * 上级菜单 ID
    */
-  parentId?: number
+  parentId?: string
   /**
    * 路由地址
    */
@@ -483,7 +483,7 @@ export interface MenuResp extends BaseDetailResp {
   /**
    * 上级菜单 ID
    */
-  parentId?: number
+  parentId?: string
   /**
    * 路由地址
    */
@@ -531,7 +531,7 @@ export interface DeptReq {
   /**
    * 上级部门 ID
    */
-  parentId: number
+  parentId: string
   /**
    * 排序
    */
@@ -557,7 +557,7 @@ export interface DeptResp extends BaseDetailResp {
   /**
    * 上级部门ID，上级部门ID
    */
-  parentId?: number
+  parentId?: string
   /**
    * 排序，排序
    */
@@ -575,27 +575,102 @@ export interface DeptQuery {
   status?: Status
 }
 
-/** 公告类型 */
-export interface NoticeResp {
-  id?: string
-  title?: string
-  type: string
-  noticeScope: number
-  noticeMethods?: Array<number>
-  isTiming: boolean
+/**
+ * 公告响应参数
+ */
+export interface NoticeResp extends BaseResp {
+  /**
+   * 是否已读
+   */
+  isRead?: boolean
+  /**
+   * 是否定时
+   */
+  isTiming?: boolean
+  /**
+   * 是否置顶
+   */
+  isTop?: boolean
+  /**
+   * 通知方式
+   */
+  noticeMethods?: NoticeMethod[]
+  /**
+   * 通知范围(1.所有人 2.指定用户)<span style='color:red'>{1=所有人, 2=指定用户}</span>
+   */
+  noticeScope?: NoticeScope
+  /**
+   * 发布时间
+   */
   publishTime?: string
-  isTop: boolean
-  status?: Status
+  /**
+   * 状态<span style='color:red'>{1=草稿, 2=待发布, 3=已发布}</span>
+   */
+  status?: NoticeStatus
+  /**
+   * 标题
+   */
+  title?: string
+  /**
+   * 分类（取值于字典 notice_type）
+   */
+  type?: string
 }
 
-export type NoticeDetailResp = NoticeResp & {
-  createdUsername: string
-  createdAt: string
-  modifiedUsername: string
-  modifiedAt: string
+/**
+ * 详情响应参数基类
+ */
+export interface NoticeDetailResp extends BaseDetailResp, NoticeResp {
+  /**
+   * 内容
+   */
+  content?: string
 }
-export type NoticePreviewResp = NoticeDetailResp & {
+
+/**
+ * NoticeReq，公告创建或修改请求参数
+ */
+export interface NoticeReq {
+  /**
+   * 内容
+   */
   content: string
+  /**
+   * 是否定时
+   */
+  isTiming: boolean
+  /**
+   * 是否置顶
+   */
+  isTop?: boolean
+  /**
+   * 通知方式
+   */
+  noticeMethods?: NoticeMethod[]
+  /**
+   * 通知范围<span style='color:red'>{1=所有人, 2=指定用户}</span>
+   */
+  noticeScope: NoticeScope
+  /**
+   * 通知用户
+   */
+  noticeUsers?: string[]
+  /**
+   * 发布时间
+   */
+  publishTime?: string
+  /**
+   * 状态<span style='color:red'>{1=草稿, 2=待发布, 3=已发布}</span>
+   */
+  status?: NoticeStatus
+  /**
+   * 标题
+   */
+  title: string
+  /**
+   * 分类（取值于字典 notice_type）
+   */
+  type: string
 }
 
 export interface NoticeQuery {
@@ -608,21 +683,117 @@ export interface NoticePageQuery extends NoticeQuery, PageQuery {
 }
 
 /** 系统消息类型 */
+/**
+ * MessageResp，消息响应参数
+ */
 export interface MessageResp {
-  id: string
-  title: string
-  content: string
-  type: number
-  path: string
-  isRead: boolean
+  /**
+   * 创建时间
+   */
+  createdAt?: string
+  /**
+   * ID
+   */
+  id?: string
+  /**
+   * 是否已读
+   */
+  isRead?: boolean
+  /**
+   * 跳转路径
+   */
+  path?: string
+  /**
+   * 读取时间
+   */
   readTime?: string
-  createdUsername?: string
-  createdAt: string
+  /**
+   * 标题
+   */
+  title?: string
+  /**
+   * 类型<span style='color:red'>{1=系统消息, 2=安全消息}</span>
+   */
+  type?: MessageType
+}
+
+/**
+ * MessageDetailResp，消息详情响应参数
+ */
+export interface MessageDetailResp {
+  /**
+   * 内容
+   */
+  content?: string
+  /**
+   * 创建时间
+   */
+  createdAt?: string
+  /**
+   * ID
+   */
+  id?: string
+  /**
+   * 是否已读
+   */
+  isRead?: boolean
+  /**
+   * 跳转路径
+   */
+  path?: string
+  /**
+   * 读取时间
+   */
+  readTime?: string
+  /**
+   * 通知范围<span style='color:red'>{1=所有人, 2=指定用户}</span>
+   */
+  scope?: NoticeScope
+  /**
+   * 标题
+   */
+  title?: string
+  /**
+   * 类型<span style='color:red'>{1=系统消息, 2=安全消息}</span>
+   */
+  type?: MessageType
+  /**
+   * 通知用户
+   */
+  users?: string[]
+}
+
+/**
+ * MessageUnreadResp，未读消息响应参数
+ */
+export interface MessageUnreadResp {
+  /**
+   * 各类型未读消息数量
+   */
+  details?: MessageTypeUnreadResp[]
+  /**
+   * 未读消息数量
+   */
+  total: number
+}
+
+/**
+ * MessageTypeUnreadResp，各类型未读消息响应参数
+ */
+export interface MessageTypeUnreadResp {
+  /**
+   * 数量
+   */
+  count?: number
+  /**
+   * 类型<span style='color:red'>{1=系统消息, 2=安全消息}</span>
+   */
+  type?: MessageType
 }
 
 export interface MessageQuery {
   title?: string
-  type?: number
+  type?: MessageType
   isRead?: boolean
   sort: Array<string>
 }
@@ -665,31 +836,7 @@ export interface FilePageQuery extends FileQuery, PageQuery {}
 /**
  * FileResp，文件响应参数
  */
-export interface FileResp {
-  /**
-   * 创建时间，创建时间
-   */
-  createdAt?: Date
-  /**
-   * 创建者名称，创建者名称
-   */
-  createdUsername?: string
-  /**
-   * 是否禁用修改，是否禁用修改
-   */
-  disabled?: boolean
-  /**
-   * 主键ID，主键ID
-   */
-  id: string
-  /**
-   * 更新时间，更新时间
-   */
-  modifiedAt?: Date
-  /**
-   * 更新者名称，更新者名称
-   */
-  modifiedUsername?: string
+export interface FileResp extends BaseDetailResp {
   /**
    * 内容类型
    */
@@ -729,7 +876,7 @@ export interface FileResp {
   /**
    * 存储 ID
    */
-  storageId?: number
+  storageId?: string
   /**
    * 存储名称
    */

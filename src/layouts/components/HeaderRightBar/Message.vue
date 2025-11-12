@@ -30,7 +30,7 @@ const emit = defineEmits<{
 
 const queryParam = reactive({
   isRead: false,
-  sort: ['createTime,desc'],
+  sort: ['createdAt,desc'],
   page: 1,
   size: 5,
 })

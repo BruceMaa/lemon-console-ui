@@ -154,7 +154,7 @@ const logout = () => {
 }
 
 onMounted(() => {
-  // getMessageCount()
+  getMessageCount()
 })
 </script>
 

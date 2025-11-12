@@ -68,15 +68,15 @@
 </template>
 
 <script setup lang="ts">
-import type { NoticePreviewResp } from '@/apis/system'
+import type { NoticeDetailResp } from '@/apis'
 import { computed, ref } from 'vue'
-import { getUnreadNoticeIds, getUserNotice } from '@/apis/system/user-message'
+import { getUnreadNoticeIds, getUserNotice } from '@/apis'
 import AiEditor from './view/components/index.vue'
 
 defineOptions({ name: 'NoticePopup' })
 
 const props = withDefaults(defineProps<Props>(), {
-  method: 'POPUP',
+  method: 'LOGIN_POPUP',
 })
 
 const emit = defineEmits<{
@@ -84,15 +84,15 @@ const emit = defineEmits<{
 }>()
 
 interface Props {
-  method?: string // 通知方式，默认为 'POPUP'
+  method?: string // 通知方式，默认为 'LOGIN_POPUP'
 }
 
 const visible = ref(false)
-const unreadNoticeIds = ref<number[]>([])
+const unreadNoticeIds = ref<string[]>([])
 const currentIndex = ref(0)
 const loading = ref(false)
 const contentLoading = ref(false)
-const noticeCache = ref<Map<number, NoticePreviewResp>>(new Map())
+const noticeCache = ref<Map<string, NoticeDetailResp>>(new Map())
 
 const currentNotice = computed(() => {
   const noticeId = unreadNoticeIds.value[currentIndex.value]
@@ -119,23 +119,27 @@ const fetchNoticeDetail = async (index: number) => {
   try {
     contentLoading.value = true
     const { data } = await getUserNotice(noticeId)
-    noticeCache.value.set(noticeId, data as NoticePreviewResp)
+    noticeCache.value.set(noticeId, data)
     // 确保设置当前索引，触发计算属性更新
     currentIndex.value = index
   } catch (error) {
     console.error(`获取公告详情失败:`, error)
     // 创建一个错误状态的公告对象
     noticeCache.value.set(noticeId, {
-      id: String(noticeId),
+      id: noticeId,
       title: '获取公告失败',
       content: '获取公告内容失败，请稍后重试',
       createdUsername: '',
       publishTime: '',
       type: '',
-      noticeScope: 0,
+      noticeScope: 1,
       isTiming: false,
       isTop: false,
-    } as NoticePreviewResp)
+      modifiedUsername: '',
+      modifiedAt: '',
+      createdAt: '',
+      disabled: false,
+    } as NoticeDetailResp)
     // 即使出错也要设置当前索引
     currentIndex.value = index
   } finally {
@@ -195,7 +199,7 @@ const onClose = () => {
 
 // 打开弹窗
 const open = () => {
-  // fetchUnreadNotices()
+  fetchUnreadNotices()
 }
 
 defineExpose({
