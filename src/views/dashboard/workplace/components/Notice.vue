@@ -52,7 +52,7 @@ const getDataList = async () => {
 
 const router = useRouter()
 // 详情
-const onDetail = (id: number) => {
+const onDetail = (id: string) => {
   router.push({ path: '/user/notice', query: { id } })
 }
 
