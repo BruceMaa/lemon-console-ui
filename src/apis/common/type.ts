@@ -8,7 +8,7 @@ export interface ImageCaptchaResp {
 
 /** 仪表盘公告类型 */
 export interface DashboardNoticeResp {
-  id: number
+  id: string
   title: string
   type: number
   isTop: boolean
